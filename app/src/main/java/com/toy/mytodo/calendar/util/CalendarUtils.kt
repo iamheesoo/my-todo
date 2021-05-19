@@ -31,13 +31,9 @@ class CalendarUtils {
         fun getWeekList(dateTime: DateTime):List<DateTime>{
             val list= mutableListOf<DateTime>()
 
-            val c=Calendar.getInstance()
-            c.set(Calendar.DAY_OF_WEEK, Calendar.MONTH)
-            val format=SimpleDateFormat("dd")
-            val monday=format.format(c.time).toInt()
-            val startValue=DateTime(dateTime)
+            val monday=dateTime.minusDays(dateTime.dayOfWeek-1)//DateTime(dateTime)
             for (i in 0 until 7){
-                list.add(DateTime(startValue.plusDays(i)))
+                list.add(DateTime(monday.plusDays(i)))
             }
 
             return list

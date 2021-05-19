@@ -10,7 +10,10 @@ import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.core.content.withStyledAttributes
+import androidx.lifecycle.ViewModelProvider
+import com.toy.mytodo.MyApp
 import com.toy.mytodo.R
+import com.toy.mytodo.viewmodel.TaskViewModel
 import org.joda.time.DateTime
 import kotlin.math.min
 
@@ -20,7 +23,8 @@ class DayItemView @JvmOverloads constructor(
         @AttrRes private val defStyleAttr: Int = R.attr.itemViewStyle,
         @StyleRes private val defStyleRes: Int = R.style.Calendar_ItemViewStyle,
         private val date: DateTime = DateTime(),
-        private val firstDayOfMonth: DateTime=DateTime()
+        private val firstDayOfMonth: DateTime=DateTime(),
+        private val listener: EventListener
     ): View(ContextThemeWrapper(context, defStyleRes), attrs, defStyleAttr) {
 
     private val TAG="DayItemView"
@@ -41,12 +45,13 @@ class DayItemView @JvmOverloads constructor(
             recPaint.apply {
                 color=Color.parseColor("#443F79")
                 style=Paint.Style.FILL
-
             }
         }
-        setOnClickListener(View.OnClickListener {
-            Log.i(TAG, DateTime(date).toString())
-        })
+
+        setOnClickListener {
+            Log.i(TAG, date.toString())
+            listener.onItemClick(date)
+        }
 
     }
 
@@ -68,5 +73,16 @@ class DayItemView @JvmOverloads constructor(
 
     }
 
+    interface EventListener{
+        fun onItemClick(dateTime: DateTime)
+    }
 
+    fun setListener(listener: EventListener){
+        Log.i(TAG, "setListener")
+
+        this.setOnClickListener(View.OnClickListener {
+            Log.i(TAG, date.toString())
+            listener.onItemClick(date)
+        })
+    }
 }

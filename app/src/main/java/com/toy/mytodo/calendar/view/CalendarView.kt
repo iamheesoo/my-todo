@@ -32,7 +32,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val h=paddingTop+paddingBottom+max(suggestedMinimumHeight, (_height*7).toInt())
+        val h=paddingTop+paddingBottom+max(suggestedMinimumHeight, (_height*2).toInt())
         setMeasuredDimension(getDefaultSize(suggestedMinimumWidth, widthMeasureSpec), h)
     }
 
@@ -42,29 +42,29 @@ class CalendarView @JvmOverloads constructor(
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         val iWidth=(width/DAYS_PER_WEEK).toFloat()
-        val iHeight=(height/6).toFloat()
+        val iHeight=(height/2).toFloat()
 
         var index=0
         children.forEach { view ->
             val left=(index%DAYS_PER_WEEK)*iWidth
-            val top=(index/ DAYS_PER_WEEK)*iHeight
-
+            val top=(index/DAYS_PER_WEEK)*iHeight//(index/DAYS_PER_WEEK)*iHeight
             view.layout(left.toInt(), top.toInt(), (left+iWidth).toInt(), (top+iHeight).toInt())
 
             index++
         }
     }
 
-    fun initCalendar(firstDayOfMonth: DateTime, list:List<DateTime>){
+    fun initCalendar(firstDayOfMonth: DateTime, list:List<DateTime>, listener: DayItemView.EventListener){
         showDayOfWeek()
 
         list.forEach{
             addView(
                 DayItemView(
-                context=context,
-                date=it,
-                firstDayOfMonth =firstDayOfMonth
-            )
+                    context=context,
+                    date=it,
+                    firstDayOfMonth =firstDayOfMonth,
+                    listener= listener
+                )
             )
         }
     }
@@ -74,9 +74,9 @@ class CalendarView @JvmOverloads constructor(
         week.forEach {
             addView(
                 DayOfWeekItemView(
-                context=context,
-                dayOfWeek=it
-            )
+                    context=context,
+                    dayOfWeek=it
+                )
             )
         }
     }
