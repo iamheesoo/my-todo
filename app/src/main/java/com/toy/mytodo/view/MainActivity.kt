@@ -3,19 +3,43 @@ package com.toy.mytodo.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.toy.mytodo.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.toy.mytodo.databinding.ActivityMainBinding
+import com.toy.mytodo.repository.dto.Task
+import com.toy.mytodo.viewmodel.TaskViewModel
 import org.joda.time.DateTime
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG="MainActivity"
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var launcher: ActivityResultLauncher<Intent>
+    private val taskViewModel by viewModels<TaskViewModel>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        nav.setOnNavigationItemSelectedListener { navigation(it) }
-        nav.selectedItemId= R.id.nav_home
+//        binding.lifecycleOwner=this
+
+        launcher=registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if(it.resultCode== RESULT_OK){
+                val task=it.data?.extras?.get(DATA_TASK) as Task
+                insertTask(task)
+            }
+        }
+
+        binding.nav.setOnNavigationItemSelectedListener { navigation(it) }
+        binding.nav.selectedItemId= R.id.nav_home
+
     }
 
     private fun navigation(item: MenuItem): Boolean{
@@ -27,7 +51,8 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.nav_add ->{
-                startActivity(Intent(this, AddActivity::class.java))
+                val intent=Intent(this@MainActivity, AddActivity::class.java)
+                launcher.launch(intent)
                 return true
             }
             R.id.nav_account ->{
@@ -36,5 +61,14 @@ class MainActivity : AppCompatActivity() {
             }
             else -> return false
         }
+    }
+
+    private fun insertTask(task: Task){
+        Log.d(TAG, "$task")
+        taskViewModel.insert(task)
+    }
+
+    companion object{
+        const val DATA_TASK="DATA_TASK"
     }
 }

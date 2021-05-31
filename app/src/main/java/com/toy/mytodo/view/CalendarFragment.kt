@@ -6,22 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.toy.mytodo.MyApp
 import com.toy.mytodo.calendar.util.CalendarUtils
 import com.toy.mytodo.calendar.view.DayItemView
 import com.toy.mytodo.databinding.FragmentCalendarBinding
-import com.toy.mytodo.viewmodel.TaskViewModel
 import org.joda.time.DateTime
 
-class CalendarTaskFragment: Fragment()  {
+class CalendarFragment: Fragment()  {
     private val TAG="CalendarFragment"
     private var millis: Long=0L
     private lateinit var binding: FragmentCalendarBinding
-    private val viewModel: TaskViewModel by lazy{
-        ViewModelProvider(this, TaskViewModel.Factory(MyApp.getInstance())).get(TaskViewModel::class.java)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +32,7 @@ class CalendarTaskFragment: Fragment()  {
         val listener=object : DayItemView.EventListener {
             override fun onItemClick(dateTime: DateTime) {
                 Log.i(TAG, dateTime.toString("yyyy-MM-dd"))
-                viewModel.setDateTime(dateTime)
+//                viewModel.setDateTime(dateTime)
             }
         }
 
@@ -50,17 +43,13 @@ class CalendarTaskFragment: Fragment()  {
             listener
         )
 
-        viewModel.selectedDate.observe(this, Observer {
-            binding.tvDay.text=it.toString()
-        })
-
         return binding.root
     }
 
     companion object {
         private const val MILLIS="MILLIS"
 
-        fun newInstance(position: Int)= CalendarTaskFragment().apply {
+        fun newInstance(position: Int)= CalendarFragment().apply {
             Log.i(TAG, position.toString())
 //            arguments= Bundle().apply { putLong(MILLIS, DateTime.now().millis+(position-5)*86400000*7) }
             arguments= Bundle().apply { putLong(MILLIS, DateTime.now().millis+position*86400000*7) }

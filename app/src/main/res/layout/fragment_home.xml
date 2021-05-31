@@ -4,57 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.HomeFragment">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="20dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/tv_hello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good morning,"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_name"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jack"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_hello"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/tv_hello"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Good morning,"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@id/tv_name"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jack"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tv_hello"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"/>
 
 
-            <TextView
-                android:id="@+id/tv_task"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today's tasks"
-                app:layout_constraintTop_toBottomOf="@id/viewpager"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tv_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today's tasks"
+            app:layout_constraintTop_toBottomOf="@id/viewpager"
+            app:layout_constraintBottom_toTopOf="@id/frag_task"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <fragment
+            android:id="@+id/frag_task"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:name="com.toy.mytodo.view.TaskFragment"
+            app:layout_constraintTop_toBottomOf="@id/tv_task"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
