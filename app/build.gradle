@@ -56,7 +56,6 @@ dependencies {
     kapt  "androidx.room:room-compiler:2.2.5"
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
-
     // livedata
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     kapt 'android.arch.lifecycle:compiler:1.1.1'
@@ -68,6 +67,11 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.2.3"
     implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha01'
 
+    // koin
+    implementation 'org.koin:koin-android:2.1.5'
+    implementation 'org.koin:koin-androidx-scope:2.1.5'
+    implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+    implementation 'org.koin:koin-androidx-fragment:2.1.5'
 
 
 }

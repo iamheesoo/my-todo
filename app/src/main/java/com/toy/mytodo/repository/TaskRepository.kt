@@ -18,7 +18,8 @@ class TaskRepository(application: Application) {
         return tasks
     }
 
-    fun getAll(date: String): LiveData<List<Task>>{
+    fun getAllByDate(date: String): LiveData<List<Task>>{
+        Log.i(TAG, date)
         return taskDao.findAllByDate(date)
     }
 

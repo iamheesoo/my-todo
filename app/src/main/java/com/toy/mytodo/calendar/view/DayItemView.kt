@@ -10,10 +10,7 @@ import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.core.content.withStyledAttributes
-import androidx.lifecycle.ViewModelProvider
-import com.toy.mytodo.MyApp
 import com.toy.mytodo.R
-import com.toy.mytodo.viewmodel.TaskViewModel
 import org.joda.time.DateTime
 import kotlin.math.min
 
@@ -78,10 +75,7 @@ class DayItemView @JvmOverloads constructor(
     }
 
     fun setListener(listener: EventListener){
-        Log.i(TAG, "setListener")
-
         this.setOnClickListener(View.OnClickListener {
-            Log.i(TAG, date.toString())
             listener.onItemClick(date)
         })
     }

@@ -9,7 +9,7 @@ interface TaskDao {
     @Query("SELECT * FROM TASK ORDER BY date ASC")
     fun findAll():LiveData<List<Task>>
 
-    @Query("SELECT * FROM task WHERE date LIKE :date ORDER BY date ASC")
+    @Query("SELECT * FROM TASK WHERE date == :date ORDER BY date ASC")
     fun findAllByDate(date: String): LiveData<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

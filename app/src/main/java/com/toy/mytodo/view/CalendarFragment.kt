@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.toy.mytodo.calendar.util.CalendarUtils
 import com.toy.mytodo.calendar.view.DayItemView
 import com.toy.mytodo.databinding.FragmentCalendarBinding
+import com.toy.mytodo.viewmodel.TaskViewModel
 import org.joda.time.DateTime
 
 class CalendarFragment: Fragment()  {
     private val TAG="CalendarFragment"
     private var millis: Long=0L
     private lateinit var binding: FragmentCalendarBinding
+    private val taskViewModel by activityViewModels<TaskViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +35,7 @@ class CalendarFragment: Fragment()  {
 
         val listener=object : DayItemView.EventListener {
             override fun onItemClick(dateTime: DateTime) {
-                Log.i(TAG, dateTime.toString("yyyy-MM-dd"))
-//                viewModel.setDateTime(dateTime)
+                taskViewModel.setSelectedDate(dateTime)
             }
         }
 

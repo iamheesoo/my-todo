@@ -3,12 +3,8 @@ package com.toy.mytodo.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import com.toy.mytodo.MyApp
 import com.toy.mytodo.databinding.ActivityAddBinding
 import com.toy.mytodo.repository.dto.Task
-import com.toy.mytodo.viewmodel.TaskViewModel
 import org.joda.time.DateTime
 
 class AddActivity : AppCompatActivity() {
