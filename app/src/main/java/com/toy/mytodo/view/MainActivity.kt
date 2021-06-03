@@ -8,7 +8,6 @@ import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.toy.mytodo.R
 import com.toy.mytodo.databinding.ActivityMainBinding
 import com.toy.mytodo.repository.dto.Task
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_home -> {
                 var start=DateTime().withDayOfMonth(1).withTimeAtStartOfDay().millis
                 val millis= DateTime(start).plusMonths(5).millis
-                supportFragmentManager.beginTransaction().replace(R.id.main_content, HomeFragment(application)).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.main_content, HomeFragment()).commit()
                 return true
             }
             R.id.nav_add ->{

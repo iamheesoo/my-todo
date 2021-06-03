@@ -6,19 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.toy.mytodo.calendar.util.CalendarUtils
 import com.toy.mytodo.calendar.view.DayItemView
 import com.toy.mytodo.databinding.FragmentCalendarBinding
 import com.toy.mytodo.viewmodel.TaskViewModel
 import org.joda.time.DateTime
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CalendarFragment: Fragment()  {
     private val TAG="CalendarFragment"
     private var millis: Long=0L
     private lateinit var binding: FragmentCalendarBinding
-    private val taskViewModel by activityViewModels<TaskViewModel>()
+    private val taskViewModel by sharedViewModel<TaskViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

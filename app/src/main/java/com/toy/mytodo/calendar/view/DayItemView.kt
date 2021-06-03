@@ -46,7 +46,6 @@ class DayItemView @JvmOverloads constructor(
         }
 
         setOnClickListener {
-            Log.i(TAG, date.toString())
             listener.onItemClick(date)
         }
 

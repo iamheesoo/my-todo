@@ -19,6 +19,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     get()=_selectedDate
 
     val tasks: LiveData<List<Task>> = Transformations.switchMap(selectedDate) { date ->
+        Log.d(TAG, "switchMap")
         repository.getAllByDate(date.toString("yyyy-MM-dd"))
     }
 
@@ -28,6 +29,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setSelectedDate(dateTime: DateTime){
         _selectedDate.value = dateTime
+        Log.d(TAG, dateTime.toString("yyyy-MM-dd"))
     }
 
     fun insert(task: Task)=repository.insert(task)

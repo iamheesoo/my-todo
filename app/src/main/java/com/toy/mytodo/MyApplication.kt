@@ -2,16 +2,28 @@ package com.toy.mytodo
 
 import android.app.Application
 import android.content.Context
+import com.toy.mytodo.adapter.TaskAdapter
+import com.toy.mytodo.viewmodel.TaskViewModel
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 class MyApplication: Application() {
 
-    companion object{
-        private val instance: MyApplication= MyApplication()
+    override fun onCreate() {
+        super.onCreate()
 
-        fun applicationContext(): Context {
-            return instance.applicationContext
+        startKoin {
+            androidContext(this@MyApplication)
+            modules(viewModelModule)
         }
+    }
 
-        fun getInstance(): Application= instance
+}
+
+val viewModelModule = module {
+    viewModel {
+        TaskViewModel(get())
     }
 }
